@@ -16,6 +16,7 @@
 namespace bonza;
 
 use bonza\ssl\exception\RuntimeException;
+use Exception;
 
 class OpenSsl
 {
@@ -25,16 +26,20 @@ class OpenSsl
      */
     private $privateKey;
 
-    public function __construct()
+    /**
+     * $config = [
+     *     'digest_alg'       => 'sha512',
+     *     'private_key_bits' => 4096,
+     *     'private_key_type' => OPENSSL_KEYTYPE_RSA,
+     * ];
+     * OpenSsl constructor.
+     * @param  array  $config
+     */
+    public function __construct(array $config)
     {
         if (!extension_loaded('openssl')) {
             throw new RuntimeException('openssl not load');
         }
-        $config = [
-            'digest_alg'       => 'sha512',
-            'private_key_bits' => 4096,
-            'private_key_type' => OPENSSL_KEYTYPE_RSA,
-        ];
         // 生成私钥对象
         $this->privateKey = openssl_pkey_new($config);
     }
@@ -217,18 +222,18 @@ class OpenSsl
      */
     public function encode(string $data, string $key, string $encryptMethod = 'aes-256-cbc'): array
     {
-        // 生成IV
-        $ivLength = openssl_cipher_iv_length($encryptMethod);
-        $iv = openssl_random_pseudo_bytes($ivLength, $isStrong);
-        if (false === $iv && false === $isStrong) {
-            throw new RuntimeException('IV generate failed');
+        try {
+            // 生成IV
+            $ivLength = openssl_cipher_iv_length($encryptMethod);
+            $iv = random_bytes($ivLength);// 加密
+            $encrypt_str = openssl_encrypt($data, $encryptMethod, $key, 0, $iv);
+            return [
+                'encrypt_str' => $encrypt_str,
+                'iv'          => $iv
+            ];
+        } catch (Exception $e) {
+            throw new RuntimeException($e->getMessage());
         }
-        // 加密
-        $encrypt_str = openssl_encrypt($data, $encryptMethod, $key, 0, $iv);
-        return [
-            'encrypt_str' => $encrypt_str,
-            'iv'          => $iv
-        ];
     }
 
     /**
