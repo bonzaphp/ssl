@@ -1,0 +1,8 @@
+.idea
+.vendor
+.vendor/*
+composer.lock
+/vendor/
+fdd.txt
+notify.php
+index.php

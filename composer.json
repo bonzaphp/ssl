@@ -1,0 +1,34 @@
+{
+    "name": "bonza/ssl",
+    "description": "支持PHP7.2语法，法大大接口类库",
+    "type": "library",
+    "keywords": [
+        "openssl",
+        "sdk"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "bonza",
+            "email": "y.shi.guo@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=7.2.0",
+        "ext-openssl": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "bonza\\ssl\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.0-dev"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.5"
+    }
+}
