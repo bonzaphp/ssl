@@ -13,7 +13,7 @@
  * Time: 11:33
  */
 
-namespace bonza;
+namespace bonza\ssl;
 
 use bonza\ssl\exception\RuntimeException;
 use Exception;
