@@ -12,11 +12,9 @@ composer require bonza/ssl
 ```php
 
 
-$fdd = new Fdd($options);
+$ssl = new OpenSsl();
 
-/** @return array  */
 
-//$res = $fdd->accountRegister('456');
 
 ==暂时没有测试覆盖==
 
