@@ -1,6 +1,6 @@
 {
     "name": "bonza/ssl",
-    "description": "支持PHP7.2语法，法大大接口类库",
+    "description": "php的openssl操作类库,简化加解密操作",
     "type": "library",
     "keywords": [
         "openssl",
